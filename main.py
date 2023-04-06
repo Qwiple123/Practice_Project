@@ -22,7 +22,7 @@ class Quest(StatesGroup):
 @dp.message_handler(commands='start')
 async def start(msg: types.Message):
     print(f'{msg.from_user.full_name} : start')
-    await msg.answer('''Здравствуйте\nЭто бот посвященный книге "Хроники разбитого мира"\nПройдите небольшой квест и получите промокод на скидку ''', reply_markup=keyboards.main_keyboard()) 
+    await msg.answer('''Здравствуйте\nЭто бот посвященный книге "Хроники разбитого мира"\nПройдите небольшой квест и получите подарок ''', reply_markup=keyboards.main_keyboard()) 
 
 
 @dp.callback_query_handler(text="start")
@@ -94,7 +94,7 @@ async def third_answer(msg: types.Message, state: FSMContext):
         media = types.MediaGroup()
         media.attach_photo(types.InputFile('gallery/4.JPG'))
         await bot.send_media_group(user_id, media=media)
-        await bot.send_message(user_id, '''На картинке изображен парк фриджетов\nНапишите сколько аттракционов вы нашли''')
+        await bot.send_message(user_id, '''На картинке изображен парк фриджитов\nНапишите сколько аттракционов вы нашли''')
         await Quest.fourth.set()
 
 @dp.message_handler(state=Quest.fourth)
@@ -102,14 +102,14 @@ async def fourth_answer(msg: types.Message, state: FSMContext):
     answer = msg.text
     print(answer)
     
-    if answer != '4':
+    if answer != '8':
         await state.finish()
         await msg.answer('Неверно, попробуй еще раз')
         await Quest.fourth.set()
 
-    elif answer == '4':
+    elif answer == '8':
         await state.finish()
-        await msg.answer('Верно вы справились со всеми заданиями и заслужили промокод \n Ваш промокод (не придумал)')
+        await msg.answer('Отлично! вы справились со всеми заданиями и получаете в награду 3 главы многоголосой озвучки \n')
         
 
 
